@@ -79,8 +79,8 @@ function animate() {
 }
 
 function render() {
-  // camera.position.x += ( mouseX - camera.position.x ) * .05;
-  // camera.position.y += ( - mouseY + 200 - camera.position.y ) * .05;
+  camera.position.x += ( mouseX - 1000 - camera.position.x );
+  camera.position.y += ( - mouseY + 500 - camera.position.y );
   camera.lookAt( scene.position );
 
   water.material.uniforms.time.value += 1.0 / 60.0;
