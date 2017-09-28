@@ -89,7 +89,12 @@ function initWater() {
     shininess: 100,
     envMap: cubeMap
   } );
-  
+
   sphere = new THREE.Mesh( geometry, material );
   scene.add( sphere );
+}
+
+function animateBall() {
+  sphere.rotation.x += 0.001;
+  sphere.rotation.z += 0.001;
 }

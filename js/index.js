@@ -85,6 +85,7 @@ function render() {
 
   water.material.uniforms.time.value += 1.0 / 60.0;
   water.render();
+  animateBall();
 
   renderer.render( scene, camera );
 }
