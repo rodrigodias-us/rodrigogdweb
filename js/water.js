@@ -91,7 +91,7 @@ function initWater() {
   } );
 
   sphere = new THREE.Mesh( geometry, material );
-  scene.add( sphere );
+  // scene.add( sphere );
 }
 
 function animateBall() {

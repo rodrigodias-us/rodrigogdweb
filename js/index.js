@@ -7,7 +7,7 @@ SEPARATION = 200,
 AMOUNTX = 10,
 AMOUNTY = 10,
 
-camera, scene, renderer;
+controls, camera, scene, renderer;
 
 init();
 initWater();
@@ -33,10 +33,9 @@ function init() {
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
-
-  document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-  document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-  document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+  
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.target = new THREE.Vector3(0, 0.6, 0);
 
   window.addEventListener( 'resize', onWindowResize, false );
 }
@@ -76,16 +75,17 @@ function onDocumentTouchMove( event ) {
 
 function animate() {
   requestAnimationFrame( animate );
+  controls.update();
   render();
 }
 
 function render() {
-  camera.position.x += ( mouseX - 10 - camera.position.x );
-  camera.position.y += ( - mouseY + 10 - camera.position.y );
+  // camera.position.x += ( mouseX - 10 - camera.position.x );
+  // camera.position.y += ( - mouseY + 10 - camera.position.y );
   
-  if (camera.position.y < 10) camera.position.y = 10;
+  // if (camera.position.y < 10) camera.position.y = 10;
 
-  if (map) camera.lookAt( map.position );
+  // if (map) camera.lookAt( map.position );
 
   water.material.uniforms.time.value += 1.0 / 60.0;
   water.render();
