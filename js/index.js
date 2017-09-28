@@ -21,7 +21,7 @@ function init() {
   document.body.appendChild(container);
 
   camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.5, 3000000 );
-  camera.position.set( 2000, 200, 2000 );
+  camera.position.set( 1000, 200, 10 );
 
   scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2( 0xaabbbb, 0.0001 );

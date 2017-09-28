@@ -40,7 +40,6 @@ function initWater() {
   mirrorMesh.rotation.x = - Math.PI * 0.5;
   scene.add( mirrorMesh );
 
-
   var cubeMap = new THREE.CubeTexture( [] );
   cubeMap.format = THREE.RGBFormat;
   var loader = new THREE.ImageLoader();
@@ -54,26 +53,43 @@ function initWater() {
       context.drawImage( image, - x * size, - y * size );
       return canvas;
     };
-          cubeMap.images[ 0 ] = getSide( 2, 1 ); // px
-          cubeMap.images[ 1 ] = getSide( 0, 1 ); // nx
-          cubeMap.images[ 2 ] = getSide( 1, 0 ); // py
-          cubeMap.images[ 3 ] = getSide( 1, 2 ); // ny
-          cubeMap.images[ 4 ] = getSide( 1, 1 ); // pz
-          cubeMap.images[ 5 ] = getSide( 3, 1 ); // nz
-          cubeMap.needsUpdate = true;
-        } );
+    cubeMap.images[ 0 ] = getSide( 2, 1 ); 
+    cubeMap.images[ 1 ] = getSide( 0, 1 ); 
+    cubeMap.images[ 2 ] = getSide( 1, 0 ); 
+    cubeMap.images[ 3 ] = getSide( 1, 2 ); 
+    cubeMap.images[ 4 ] = getSide( 1, 1 ); 
+    cubeMap.images[ 5 ] = getSide( 3, 1 ); 
+    cubeMap.needsUpdate = true;
+  } );
+
   var cubeShader = THREE.ShaderLib[ 'cube' ];
   cubeShader.uniforms[ 'tCube' ].value = cubeMap;
+
   var skyBoxMaterial = new THREE.ShaderMaterial( {
     fragmentShader: cubeShader.fragmentShader,
     vertexShader: cubeShader.vertexShader,
     uniforms: cubeShader.uniforms,
     depthWrite: false,
     side: THREE.BackSide
-  } );
+  });
+
   var skyBox = new THREE.Mesh(
     new THREE.BoxGeometry( 1000000, 1000000, 1000000 ),
     skyBoxMaterial
     );
+
   scene.add( skyBox );
+
+  var geometry = new THREE.IcosahedronGeometry( 400, 4 );
+  for ( var i = 0, j = geometry.faces.length; i < j; i ++ ) {
+    geometry.faces[ i ].color.setHex( Math.random() * 0xffffff );
+  }
+  var material = new THREE.MeshPhongMaterial( {
+    vertexColors: THREE.FaceColors,
+    shininess: 100,
+    envMap: cubeMap
+  } );
+  
+  sphere = new THREE.Mesh( geometry, material );
+  scene.add( sphere );
 }
