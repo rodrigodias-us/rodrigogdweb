@@ -11,6 +11,7 @@ camera, scene, renderer;
 
 init();
 initWater();
+initMap();
 animate();
 
 function init() {
@@ -21,7 +22,7 @@ function init() {
   document.body.appendChild(container);
 
   camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.5, 3000000 );
-  camera.position.set( 1000, 200, 1000 );
+  camera.position.set( 0, 100, -1000 );
 
   scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2( 0xaabbbb, 0.0001 );
@@ -79,9 +80,12 @@ function animate() {
 }
 
 function render() {
-  camera.position.x += ( mouseX - 1000 - camera.position.x );
-  camera.position.y += ( - mouseY + 500 - camera.position.y );
-  camera.lookAt( scene.position );
+  camera.position.x += ( mouseX - 10 - camera.position.x );
+  camera.position.y += ( - mouseY + 10 - camera.position.y );
+  
+  if (camera.position.y < 10) camera.position.y = 10;
+
+  if (map) camera.lookAt( map.position );
 
   water.material.uniforms.time.value += 1.0 / 60.0;
   water.render();

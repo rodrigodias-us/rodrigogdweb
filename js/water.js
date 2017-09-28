@@ -15,7 +15,7 @@ function initWater() {
   waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
 
   var light = new THREE.DirectionalLight( 0xffffbb, 1 );
-  light.position.set( -1, 1, 1 );
+  light.position.set( -1000, 1000, -1000 );
   scene.add( light );
 
   water = new THREE.Water( renderer, camera, scene, {
